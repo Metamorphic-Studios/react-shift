@@ -9,7 +9,7 @@ export default class ModuleChecker extends Component {
       super(props);
 
       let cmp = (
-         <Loader module={"npm:" + this.props.module} onLoad={(c) => {
+         <Loader module={"npm:" + this.props.module } onLoad={(c) => {
             c.name = this.props.module;
             if(c && this.props.onChecked){
                this.props.onChecked(typeof(c.Component) == 'object', c);

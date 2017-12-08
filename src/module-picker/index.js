@@ -35,6 +35,9 @@ export default class ModulePicker extends Component {
    _addComponent(c, p){
       if(this.props.onNewComponent){
          this.props.onNewComponent(c, p);
+         this.setState({
+            view: 'module'
+         });
       }
    }
 

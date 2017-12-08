@@ -50,6 +50,7 @@ export default class extends Component {
    render() {
    return (
       <div className="shift-box">
+      <button onClick={() => this.setState({pickerOpen: true})}>Add</button>
       <ResponsiveGrid className="layout"
          layouts={this.state.layouts}
          breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
