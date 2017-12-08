@@ -19,7 +19,9 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "react-grid-layout": "^0.16.0"
+    "react-grid-layout": "^0.16.0",
+    "react-jspm-loader": "git+https://github.com/Metamorphic-Studios/react-jspm-loader.git",
+    "react-modal": "^3.1.7"
   },
   "peerDependencies": {
     "react": "15.x"

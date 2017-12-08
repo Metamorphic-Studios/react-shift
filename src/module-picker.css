@@ -1,0 +1,13 @@
+.search-results {
+   list-style: none;
+   padding: 0;
+}
+
+.search-results > li {
+   height: 30px;
+   cursor: pointer;
+}
+
+.search-results > li:hover {
+   background-color: #ddd;
+}

@@ -6,7 +6,7 @@ import Example from '../../src'
 class Demo extends Component {
   render() {
     return <div>
-      <h1>react-shift Demo</h1>
+      <h1>react-shift</h1>
       <Example/>
     </div>
   }
