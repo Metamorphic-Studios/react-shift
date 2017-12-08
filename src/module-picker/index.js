@@ -69,22 +69,6 @@ export default class ModulePicker extends Component {
          );
       }else if(this.state.view == 'module-parser'){
          return (
-<<<<<<< HEAD
-            <ModuleChecker module={this.state.module} onChecked={(test, c) => {
-               if(test){
-                  console.log(c);
-                  this.setState({
-                     view: 'submodules',
-                     submodules: c
-                  });
-               }else{
-                  this.setState({
-                     view: 'props',
-                     module: c,
-                  });
-               }
-            }}/>
-=======
             <div>
                {this._renderBackButton('module')}
                <ModuleChecker module={this.state.module} onChecked={(test, c) => {
@@ -101,7 +85,6 @@ export default class ModulePicker extends Component {
                   }
                }}/>
             </div>
->>>>>>> 9fa5435c2c4bdda524b206394a03f8dedfc1481f
          );
       }else if(this.state.view == 'submodules'){    
          return (
