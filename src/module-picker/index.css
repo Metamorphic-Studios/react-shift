@@ -1,3 +1,8 @@
+.Select {
+   flex: 1;
+   height: min-content;
+}
+
 .search-results {
    list-style: none;
    padding: 0;

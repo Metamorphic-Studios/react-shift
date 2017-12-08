@@ -23,10 +23,10 @@ export default class extends Component {
    }
 
    _render(){
-      var components = this.state.components.map((x) => {
+      var components = this.state.components.map((x, ix) => {
          return (
-            <div key={x} style={{border: '1px solid #ddd', display: 'flex'}}>
-               <ShiftComponent module={x}/>
+            <div key={ix} style={{border: '1px solid #ddd', display: 'flex'}}>
+               {x} 
             </div>
          );
       });
@@ -34,11 +34,12 @@ export default class extends Component {
    }
 
 
-   _addNewPackage(pkg, version){
+   _addNewPackage(Component, p){
       var components = this.state.components;
       var layouts = this.state.layouts;
-      components.push('npm:' + pkg);
-      layouts.push({i: 'npm:' + pkg});
+      
+      components.push((<Component {...p} />));
+      layouts.push({i: components.length});
       this.setState({
          pickerOpen: false,
          components: components,
@@ -55,7 +56,7 @@ export default class extends Component {
          cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}>
          {this._render()}
       </ResponsiveGrid>
-      <ModulePicker open={this.state.pickerOpen} onSelectPackage={this._addNewPackage.bind(this)}/>
+      <ModulePicker open={this.state.pickerOpen} onNewComponent={this._addNewPackage.bind(this)}/>
       </div>
     );
   }
