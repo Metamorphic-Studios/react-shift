@@ -20,7 +20,6 @@ export default class ModuleChecker extends Component {
                </div>   
          </Loader>
       ); 
-      console.log("CMP", cmp);
       this.state = {
          ...props,
          cmp: cmp

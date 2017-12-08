@@ -62,6 +62,7 @@ export default class ModulePicker extends Component {
          return (
             <ModuleChecker module={this.state.module} onChecked={(test, c) => {
                if(test){
+                  console.log(c);
                   this.setState({
                      view: 'submodules',
                      submodules: c
