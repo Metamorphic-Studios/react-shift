@@ -46,6 +46,7 @@ export default class PropEditor extends Component {
             <input type="text" onChange={(e) => {
                var props = this.state.props;
                props[this.state.selectedProp] = e.target.value;
+               this.props.setProps(props);
                this.setState({
                   props: props,
                   propInput: e.target.value
@@ -75,8 +76,7 @@ export default class PropEditor extends Component {
                {this._renderPropInput()}
             </div>
             <div>
-               <this.props.component {...this.state.props} />
-               <button onClick={this._submit.bind(this)}>Add to dashboard</button>
+               
             </div>
          </div>
       );
