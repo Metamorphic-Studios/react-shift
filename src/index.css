@@ -1,3 +1,9 @@
+.react-grid-item > *:first-child{
+   height: auto !important;
+   width: auto !important;
+   flex: 1;
+}
+
 .react-resizable-handle{
     position: absolute;
     width: 20px;
