@@ -6,7 +6,7 @@ import Loader from 'react-jspm-loader';
 import Select from 'react-select';
 
 import BackIcon from 'react-icons/lib/io/ios-arrow-back';
-
+import AddIcon from 'react-icons/lib/io/android-add';
 
 import NpmSearch from './npm-search';
 import MultipleExports from './multiple-exports';
@@ -23,7 +23,8 @@ export default class ModulePicker extends Component {
          ...props,
          search: '',
          searchResults: [],
-         view: 'module'
+         view: 'module',
+         listProps : 0
       }
    }
 
@@ -51,10 +52,55 @@ export default class ModulePicker extends Component {
       console.log(selected);
    }
 
-   _renderBackButton(val) {
+
+
+
+
+   setModuleProps(props){
+      console.log('RECEIVED PROPS', props);
+
+      this.setState({
+         moduleProps : {...this.state.moduleProps, ...props}
+      });
+   }
+
+   _renderBackButton(val){
       return (
          <BackIcon style={{position : 'absolute', left : '10px', top : '10px', height : '30px', width : '30px', fontSize : '24px'}} onClick={() => {this.setState({view : val})}}/>
+      ); 
+   }
+
+   _renderAddButton() {
+      return (
+         <AddIcon style={{height : '30px', width : '30px', fontSize : '24px', marginTop : '50px'}} onClick={() => this.setState({listProps : this.state.listProps + 1})}/>
       );
+   }
+
+   _renderProps(){
+      var jsx = [];
+      for(var i = 0; i < this.state.listProps; i++){
+         jsx.push(
+            <PropEditor setProps={this.setModuleProps.bind(this)} component={this.state.module.Component} onSubmit={this._addComponent.bind(this)}/>
+         );
+      }
+      return jsx;
+   }
+
+   _renderComponent(){
+      return (
+         <this.state.module.Component {...this.state.moduleProps} />
+      );
+   }
+
+
+
+
+   submitModule(){
+      this._addComponent(this.state.module.Component, this.state.moduleProps);
+      this.setState({
+         module: null,
+         moduleProps: null
+      });   
    }
 
    _renderModalInternals(){
@@ -62,6 +108,7 @@ export default class ModulePicker extends Component {
          return (
             <NpmSearch onSelect={(module) => {
                this.setState({
+                  listProps : 0,
                   view: 'module-parser',
                   module: module
                });
@@ -73,15 +120,9 @@ export default class ModulePicker extends Component {
                {this._renderBackButton('module')}
                <ModuleChecker module={this.state.module} onChecked={(test, c) => {
                   if(test){
-                     this.setState({
-                        view: 'submodules',
-                        submodules: c
-                     });
+                     this.setState({view: 'submodules',submodules: c});
                   }else{
-                     this.setState({
-                        view: 'props',
-                        module: c,
-                     });
+                     this.setState({view: 'props',module: c,});
                   }
                }}/>
             </div>
@@ -98,7 +139,10 @@ export default class ModulePicker extends Component {
             <div>
                {this._renderBackButton('module')}
                <h2>{this.state.module.name}</h2>
-               <PropEditor component={this.state.module.Component} onSubmit={this._addComponent.bind(this)}/> 
+               {this._renderProps()}
+               {this._renderComponent()}
+               <button onClick={this.submitModule.bind(this)}>Add to dashboard</button>
+               {this._renderAddButton()}
             </div>
          );
       }
@@ -111,7 +155,6 @@ export default class ModulePicker extends Component {
             style={{position : 'relative'}}
          >
          {this._renderModalInternals()} 
-
          </Modal>
       );
    }     
