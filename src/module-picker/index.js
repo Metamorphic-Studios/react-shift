@@ -57,8 +57,6 @@ export default class ModulePicker extends Component {
 
 
    setModuleProps(props){
-      console.log('RECEIVED PROPS', props);
-
       this.setState({
          moduleProps : {...this.state.moduleProps, ...props}
       });
@@ -104,47 +102,49 @@ export default class ModulePicker extends Component {
    }
 
    _renderModalInternals(){
-      if(this.state.view == 'module'){
-         return (
-            <NpmSearch onSelect={(module) => {
-               this.setState({
-                  listProps : 0,
-                  view: 'module-parser',
-                  module: module
-               });
-            }}/>
-         );
-      }else if(this.state.view == 'module-parser'){
-         return (
-            <div>
-               {this._renderBackButton('module')}
-               <ModuleChecker module={this.state.module} onChecked={(test, c) => {
-                  if(test){
-                     this.setState({view: 'submodules',submodules: c});
-                  }else{
-                     this.setState({view: 'props',module: c,});
-                  }
+      switch(this.state.view){
+         case 'module':
+            return (
+               <NpmSearch onSelect={(module) => {
+                  this.setState({
+                     listProps : 0,
+                     view: 'module-parser',
+                     module: module
+                  });
                }}/>
-            </div>
-         );
-      }else if(this.state.view == 'submodules'){    
-         return (
-            <div>
-               {this._renderBackButton('module-parser')}
-               <MultipleExports module={this.state.submodules} onSubmit={this._addComponent.bind(this)}/>
-            </div>
-         );
-      }else{
-         return (
-            <div>
-               {this._renderBackButton('module')}
-               <h2>{this.state.module.name}</h2>
-               {this._renderProps()}
-               {this._renderComponent()}
-               <button onClick={this.submitModule.bind(this)}>Add to dashboard</button>
-               {this._renderAddButton()}
-            </div>
-         );
+            );
+         case 'module-parser':
+            return (
+               <div>
+                  {this._renderBackButton('module')}
+                  <ModuleChecker module={this.state.module} onChecked={(test, c) => {
+                     if(test){
+                        this.setState({view: 'submodules',submodules: c})
+                     }else{
+                        this.setState({view: 'props',module: c,});
+                     }
+                  }}/>
+               </div>
+            );
+         case 'submodules':
+            return (
+               <div>
+                  {this._renderBackButton('module-parser')}
+                  <MultipleExports module={this.state.submodules} onSubmit={this._addComponent.bind(this)}/>
+               </div>
+            );
+         case 'props':
+         case 'default':
+            return (
+               <div>
+                  {this._renderBackButton('module')}
+                  <h2>{this.state.module.name}</h2>
+                  {this._renderProps()}
+                  {this._renderComponent()}
+                  <button onClick={this.submitModule.bind(this)}>Add to dashboard</button>
+                  {this._renderAddButton()}
+               </div>
+            );
       }
    }     
 

@@ -1,7 +1,7 @@
 import React, {
    Component
 } from 'react';
-import Select from 'react-select';
+import { Creatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 export default class PropEditor extends Component {
    constructor(props){
@@ -36,7 +36,7 @@ export default class PropEditor extends Component {
 
    _selectProp(e){
          this.setState({
-            selectedProp: e.value
+            selectedProp: e ? e.value : null
          });
    }
 
@@ -68,11 +68,18 @@ export default class PropEditor extends Component {
       }
    }
 
+   addNewProp = (option) => {
+      console.log(option);
+      this.setState({
+         selectedProp : option
+      });
+   } 
+
    render(){
       return (
-         <div>
+         <div style={{display : 'flex', flexDirection : 'column'}}>
             <div>
-               <Select options={this.state.propTypes.map((x) => ({label: x, value: x}))} onChange={this._selectProp.bind(this)} value={this.state.selectedProp}  allowCreate={true}/>
+               <Creatable onNewOptionClick={this.addNewProp}  options={this.state.propTypes.map((x) => ({label: x, value: x}))} onChange={this._selectProp.bind(this)} value={this.state.selectedProp}  allowCreate={true}/>
                {this._renderPropInput()}
             </div>
             <div>
