@@ -4,6 +4,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveGrid = WidthProvider(Responsive);
 import ShiftComponent from './shift-component';
 import ModulePicker from './module-picker';
+import ApiPicker from './api-picker';
 import './index.css';
 
 export default class extends Component {
@@ -14,7 +15,7 @@ export default class extends Component {
          ...props,
          components: [],
          layouts: [],
-         pickerOpen: true
+         pickerOpen: false
       }
    }
 
@@ -57,6 +58,7 @@ export default class extends Component {
          cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}>
          {this._render()}
       </ResponsiveGrid>
+      <ApiPicker />
       <ModulePicker open={this.state.pickerOpen} onNewComponent={this._addNewPackage.bind(this)}/>
       </div>
     );
