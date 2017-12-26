@@ -1,5 +1,8 @@
 # react-shift
 
+## Description
+
+react-shift is a modular dashboard system for asynchronously loading available react components and allowing end user configuration of views
 
 ## Demo
 
