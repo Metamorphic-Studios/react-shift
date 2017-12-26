@@ -1,5 +1,15 @@
 # react-shift
 
+
+##Demo
+
+```javascript
+git clone https://github.com/Metamorphic-Studios/react-shift
+cd react-shift
+npm start
+
+```
+
 ## Usage
 
 ```javascript
