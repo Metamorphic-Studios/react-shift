@@ -26,3 +26,12 @@ render(){
    );
 }
 ```
+
+## Components
+
+react-shift utilises systemjs to import components from the configured registries
+
+Currently available registries are
+
+npm:
+github:
