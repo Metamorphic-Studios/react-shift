@@ -1,33 +1,49 @@
 import React, {Component} from 'react'
 
-import { Responsive, WidthProvider } from 'react-grid-layout';
-const ResponsiveGrid = WidthProvider(Responsive);
+import RGL, { Responsive, WidthProvider } from 'react-grid-layout';
+const ResponsiveGrid = WidthProvider(RGL);
 import ShiftComponent from './shift-component';
 import ModulePicker from './module-picker';
 import ApiPicker from './api-picker';
+import PropTypes from 'prop-types';
+
 import './index.css';
 
-export default class extends Component {
+class ShiftBox extends Component {
+
+   /*
+    * Prop Types
+    *
+    * layout: []
+    * components: []
+    * onLayoutChange: func
+    * onComponentChange: func
+    *
+    */
 
    constructor(props){
       super(props);
+      console.log("Initial", typeof(props.layout));
       this.state = {
          ...props,
-         components: [],
-         layouts: [],
          pickerOpen: false
       }
    }
 
-   componentWillMount(){
-   
+   componentWillReceiveProps(newProps){
+      console.log(typeof(newProps.layout))
+      if(this.props !== newProps){
+         this.setState({
+            ...newProps
+         });
+      }
    }
 
    _render(){
       var components = this.state.components.map((x, ix) => {
          return (
             <div key={ix} style={{border: '1px solid #ddd', display: 'flex'}}>
-               {x} 
+               <ShiftComponent module={x} />
             </div>
          );
       });
@@ -37,7 +53,7 @@ export default class extends Component {
 
    _addNewPackage(Component, p){
       var components = this.state.components;
-      var layouts = this.state.layouts;
+      var layout = this.state.layout;
       
       components.push((<Component {...p} />));
       layouts.push({i: components.length});
@@ -48,19 +64,37 @@ export default class extends Component {
      });
    }
 
+   _onLayoutChange(layout){
+      if(this.props.onLayoutChange){
+         this.props.onLayoutChange(layout);
+      }
+   }
+
    render() {
    return (
       <div className="shift-box">
-      <button onClick={() => this.setState({pickerOpen: true})}>Add</button>
-      <ResponsiveGrid className="layout"
-         layouts={this.state.layouts}
-         breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-         cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}>
-         {this._render()}
-      </ResponsiveGrid>
-      <ApiPicker />
-      <ModulePicker open={this.state.pickerOpen} onNewComponent={this._addNewPackage.bind(this)}/>
+         <button onClick={() => this.setState({pickerOpen: true})}>Add</button>
+         <ResponsiveGrid 
+            className="layout"
+            layouts={this.state.layout}
+            cols={12}
+            items={20}
+            rowHeight={30}
+            onLayoutChange={this._onLayoutChange.bind(this)}>
+            {this._render()}
+         </ResponsiveGrid>
+         <ApiPicker />
+         <ModulePicker open={this.state.pickerOpen} onNewComponent={this._addNewPackage.bind(this)}/>
       </div>
     );
   }
 }
+
+ShiftBox.propTypes = {
+   layout: PropTypes.array.isRequired,
+   components: PropTypes.array.isRequired,
+   onLayoutChange: PropTypes.func,
+   onComponentChange: PropTypes.func
+};
+
+export default ShiftBox;

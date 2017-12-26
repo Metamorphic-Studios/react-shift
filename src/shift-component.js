@@ -2,13 +2,13 @@ import React, {
    Component
 } from 'react';
 import Loader from 'react-jspm-loader';
+var Spinner = require('react-spinkit');
 
 export default class ShiftComponent extends Component {
    constructor(props){
       super(props);
       this.state = {
-         ...props,
-         search: '',
+         ...props
       }
    }
 
@@ -20,25 +20,19 @@ export default class ShiftComponent extends Component {
      }
    }
 
-   _search(e){
-      var val = e.target.value;
-
-      this.setState({search: val});
-      this._searchApi(val).then((r) => {
-         console.log(r);
-      });
-   }
 
    render(){
-      
-      if(this.state.module){
-         return (
-            <Loader module={this.state.module}>
-               <p>Loading...</p>
-            </Loader>
-         );
-      }else{
-         return null;
-      }
+     return (
+         <Loader module={this.state.module } onLoad={(c) => {
+               c.name = this.state.module;
+               if(c && this.props.onChecked){
+     //             this.props.onChecked(typeof(c.Component) == 'object', c);
+               }
+            }}>
+               <div style={{display: 'flex', flex: 1, alignItems: 'center', flexDirection: 'column'}}>
+                  <Spinner name='folding-cube' />
+               </div>
+         </Loader>
+     );
    }
 }  
