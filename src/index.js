@@ -6,7 +6,8 @@ import ShiftComponent from './shift-component';
 import ModulePicker from './module-picker';
 import ApiPicker from './api-picker';
 import PropTypes from 'prop-types';
-
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 import './index.css';
 
 class ShiftBox extends Component {
