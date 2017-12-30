@@ -23,15 +23,16 @@ export default class ShiftComponent extends Component {
 
    render(){
      return (
+
          <Loader module={this.state.module } onLoad={(c) => {
                c.name = this.state.module;
                if(c && this.props.onChecked){
      //             this.props.onChecked(typeof(c.Component) == 'object', c);
                }
-            }}>
-               <div style={{display: 'flex', flex: 1, alignItems: 'center', flexDirection: 'column'}}>
-                  <Spinner name='folding-cube' />
-               </div>
+         }}>
+            <div style={{display: 'flex', flex: 1, alignItems: 'center', flexDirection: 'column'}}>
+               <Spinner name='folding-cube' />
+            </div>
          </Loader>
      );
    }

@@ -6,6 +6,7 @@ import ShiftComponent from './shift-component';
 import ModulePicker from './module-picker';
 import ApiPicker from './api-picker';
 import PropTypes from 'prop-types';
+//import Edit from 'react-icons/fa/ellipsis-v';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './index.css';
@@ -45,6 +46,8 @@ class ShiftBox extends Component {
          return (
             <div key={ix} style={{border: '1px solid #ddd', display: 'flex'}}>
                <ShiftComponent module={x} />
+               <div style={{position: 'absolute', right: '5px', top: '5px', width: '5px', height: '5px'}}>
+               </div>
             </div>
          );
       });
