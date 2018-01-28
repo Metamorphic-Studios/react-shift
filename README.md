@@ -9,7 +9,9 @@ react-shift is a modular dashboard system for asynchronously loading available r
 ```javascript
 git clone https://github.com/Metamorphic-Studios/react-shift
 cd react-shift
+npm install
 npm start
+open http://localhost:3000/
 ```
 
 ## Usage
